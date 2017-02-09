@@ -9,7 +9,7 @@
 /*
 	Set the pragma pack to 1
 */
-#pragma pack(1)
+#pragma pack(push, 1)
 
 /*
 	FPT Header
@@ -146,7 +146,6 @@ typedef struct _SYS_FW_SFIH {
 	unsigned int BinarySize;
 } TXT_SYS_FW_SFIH, *PTXT_SYS_FW_SFIH;
 
-
-
+#pragma pack(pop)
 
 #endif

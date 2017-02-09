@@ -59,13 +59,13 @@ void Parse_TXE_SPDH(unsigned char *TXEImage,  PTXE_SPDH PSPDH) {
 
 	// Print Logical Sub-Partition Header
 	printf("[*] Logical Sub-Partition Header\n");
-	printf("[-] HeaderMarker:\t'%.*s'\n", sizeof(PSPDH->HeaderMarker), PSPDH->HeaderMarker);
+	printf("[-] HeaderMarker:\t'%.*s'\n", (int) sizeof(PSPDH->HeaderMarker), PSPDH->HeaderMarker);
 	printf("[-] NumberOfEntries:\t%i\n", PSPDH->NumberOfEntries);
 	printf("[-] HeaderVersion:\t%i\n", PSPDH->HeaderVersion);
 	printf("[-] EntryVersion:\t%i\n", PSPDH->EntryVersion);
 	printf("[-] HeaderLength:\t0x%X\n", PSPDH->HeaderLength);
 	printf("[-] Checksum:\t\t0x%X\n", PSPDH->Checksum);
-	printf("[-] SubPartitionName:\t'%.*s'\n", sizeof(PSPDH->SubPartitionName), PSPDH->SubPartitionName);
+	printf("[-] SubPartitionName:\t'%.*s'\n", (int) sizeof(PSPDH->SubPartitionName), PSPDH->SubPartitionName);
 	printf("\n");
 
 	// Manifest list
@@ -76,7 +76,7 @@ void Parse_TXE_SPDH(unsigned char *TXEImage,  PTXE_SPDH PSPDH) {
 
 	printf("[*] Logical Sub-Partition Header - Count %i\n", PSPDH->NumberOfEntries);
 	for (unsigned int i = 0; i < PSPDH->NumberOfEntries; i++) {
-		printf("[-] EntryName:\t\t'%.*s'\n", sizeof(PSDPE->EntryName), PSDPE->EntryName);
+		printf("[-] EntryName:\t\t'%.*s'\n", (int) sizeof(PSDPE->EntryName), PSDPE->EntryName);
 		printf("[-] Offset:\t\t0x%X\n", PSDPE->Offset);
 		printf("[-] Length:\t\t0x%X\n", PSDPE->Length);
 		printf("[-] Reseverd:\t\t0x%X\n", PSDPE->Reseverd);
@@ -112,7 +112,7 @@ void Parse_TXE_SPDH(unsigned char *TXEImage,  PTXE_SPDH PSPDH) {
 		printf("[-] Vendor:\t\t\t0x%X\n", PManifest->Vendor);
 		printf("[-] Date:\t\t\t0x%X\n", PManifest->Date);
 		printf("[-] Size:\t\t\t0x%X\n", PManifest->Size);
-		printf("[-] HeaderID:\t\t\t'%.*s'\n", sizeof(PManifest->HeaderID), (char *)&PManifest->HeaderID);
+		printf("[-] HeaderID:\t\t\t'%.*s'\n", (int) sizeof(PManifest->HeaderID), (char *)&PManifest->HeaderID);
 		printf("[-] Reserved:\t\t\t0x%X\n", PManifest->Reserved);
 		printf("[-] Version:\t\t\t0x%I64X\n", PManifest->Version);
 		printf("[-] SecurityVersionNumber:\t0x%X\n", PManifest->SecurityVersionNumber);
@@ -164,17 +164,17 @@ int main(int argc, char **argv) {
 
 	// Print FPT Header
 	printf("[*] FPT Header\n");
-	printf("[-] Magic:\t\t'%.*s'\n", sizeof(FPT->Magic), (char *) &FPT->Magic);
+	printf("[-] Magic:\t\t'%.*s'\n", (int) sizeof(FPT->Magic), (char *) &FPT->Magic);
 	printf("[-] NumEntries:\t\t%i\n", FPT->NumEntries);
 	printf("[-] Version:\t\t0x%08X\n", FPT->Version);
 
 
 	// Parse the FPT Partitions
 	PTXE_FPTP FPTP = (PTXE_FPTP) (FPT + 1);
-	for (int i = 0; i < FPT->NumEntries; i++) {
+	for (int i = 0; i < (int) FPT->NumEntries; i++) {
 		printf("[*] FPT Parition\n");
-		printf("[*] Name:\t\t%.*s\n", sizeof(FPTP->Name), FPTP->Name);
-		printf("[*] Owner:\t\t%.*s\n", sizeof(FPTP->Owner), FPTP->Owner);
+		printf("[*] Name:\t\t%.*s\n", (int) sizeof(FPTP->Name), FPTP->Name);
+		printf("[*] Owner:\t\t%.*s\n", (int) sizeof(FPTP->Owner), FPTP->Owner);
 		printf("[*] Offset:\t\t0x%08X\n", FPTP->Offset);
 		printf("[*] Size:\t\t0x%08X\n", FPTP->Size);
 
