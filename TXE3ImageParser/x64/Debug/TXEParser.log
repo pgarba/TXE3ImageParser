@@ -1,7 +1,0 @@
-﻿  TXE3ImageParser.cpp
-c:\bios\tools\txe3imageparser\txe3imageparser\txe3imageparser.cpp(28): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  c:\program files (x86)\windows kits\10\include\10.0.14393.0\ucrt\stdio.h(207): note: see declaration of 'fopen'
-c:\bios\tools\txe3imageparser\txe3imageparser\txe3imageparser.cpp(145): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  c:\program files (x86)\windows kits\10\include\10.0.14393.0\ucrt\stdio.h(207): note: see declaration of 'fopen'
-  TXEParser.vcxproj -> C:\BIOS\Tools\TXE3ImageParser\x64\Debug\TXE3ImageParser.exe
-  TXEParser.vcxproj -> C:\BIOS\Tools\TXE3ImageParser\x64\Debug\TXE3ImageParser.pdb (Partial PDB)
