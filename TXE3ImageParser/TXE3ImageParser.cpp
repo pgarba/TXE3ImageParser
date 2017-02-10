@@ -5,6 +5,7 @@
 #include <vector>
 #include <tuple>
 
+#include <direct.h>
 
 #include "TXE3Headers.h"
 
@@ -184,7 +185,14 @@ int main(int argc, char **argv) {
 
 		// Parse partition
 		if (FPTP->Size) {
+			//Create new directory
+			_mkdir(FPTP->Name);
+			_chdir(FPTP->Name);
+
 			Parse_TXE_SPDH(&TXEImage[FPTP->Offset], (PTXE_SPDH)&TXEImage[FPTP->Offset]);
+
+			//Go back to root directory
+			_chdir("..");
 		}	
 
 		// Next partition
