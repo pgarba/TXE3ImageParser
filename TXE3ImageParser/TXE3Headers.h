@@ -82,7 +82,7 @@ typedef struct {
 */
 enum SMIP_BLOCK_TYPE {
 	TXE  = 0,
-	PMC  = 1,
+	SMIP_PMC  = 1,
 	IAFW = 2
 };
 
@@ -158,7 +158,36 @@ typedef struct {
 	unsigned int RedundantBlockXorSum;
 	unsigned int IFWIVersion;
 	unsigned __int64 Reserved;
+	unsigned int TYPE;
 } TXT_BPDT, *PTXT_BPDT;
+
+/*
+	Boot Partition Descriptor Entry
+*/
+typedef struct {
+	unsigned int Type;
+	unsigned int SubPartitionOffset;
+	unsigned int SubPartitionSize;
+} TXT_BPDT_Entry, *PTXT_BPDT_Entry;
+
+enum TXT_BPDT_Entry_Type {
+	OEM_SMIP = 0,
+	TXE_RBE = 1,
+	TXE_BUP = 2,
+	uCode = 3,
+	IBB = 4,
+	sBPDT = 5,
+	OBB = 6,
+	TXE_Main = 7,
+	ISH = 8,
+	TXE_IDLM = 9,
+	IFP_Override = 10,
+	DebugTokens = 11,
+	UFS_Phy_Configuration = 12,
+	UFS_GPP_LUN_ID = 13,
+	PMC = 14,
+	iUnit = 15
+};
 
 #pragma pack(pop)
 
