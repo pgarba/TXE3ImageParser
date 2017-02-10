@@ -1,10 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
 #include <vector>
+#include <tuple>
+
 
 #include "TXE3Headers.h"
 
+int unhuff(unsigned char *huff, unsigned char *out, int outlen, int flags, int version);
 
 /*
 	Small helper to get the file size
@@ -69,7 +73,8 @@ void Parse_TXE_SPDH(unsigned char *TXEImage,  PTXE_SPDH PSPDH) {
 	printf("\n");
 
 	// Manifest list
-	std::vector<PTXE_MANIFEST> VecManifest;
+	typedef std::pair<char *, PTXE_MANIFEST> TManPair;
+	std::vector<TManPair> VecManifest;
 
 	//Parse Sub-Partition Directory Entry
 	PTXE_SPDE PSDPE = (PTXE_SPDE)(PSPDH + 1);
@@ -82,8 +87,8 @@ void Parse_TXE_SPDH(unsigned char *TXEImage,  PTXE_SPDH PSPDH) {
 		printf("[-] Reseverd:\t\t0x%X\n", PSDPE->Reseverd);
 
 		//Check if manifest
-		if (strstr(PSDPE->EntryName, ".man")) {
-			VecManifest.push_back((PTXE_MANIFEST)(TXEImage + PSDPE->Offset));
+		if (strstr(PSDPE->EntryName, ".man") || strstr(PSDPE->EntryName, ".key")) {
+			VecManifest.push_back(TManPair((char *) PSDPE->EntryName,(PTXE_MANIFEST)(TXEImage + PSDPE->Offset)));
 		}
 
 		//Dump file
@@ -97,14 +102,15 @@ void Parse_TXE_SPDH(unsigned char *TXEImage,  PTXE_SPDH PSPDH) {
 	printf("\n");
 
 	// Parse the manifests
-	for (auto PManifest : VecManifest) {
+	for (auto TManifest : VecManifest) {
+		PTXE_MANIFEST PManifest = TManifest.second;
 		if (PManifest->HeaderID != TXE_Manifest_HeaderID) {
 			printf("[*] Invalid Manifest Header !\n\n");
 			return;
-		}
+		}		
 
 		// Print Manifest header
-		printf("[*] Manifest Header\n");
+		printf("[*] Manifest Header: '%.*s'\n", sizeof(TManifest.first), TManifest.first);
 		printf("[-] HeaderType:\t\t\t0x%X\n", PManifest->HeaderType);
 		printf("[-] HeaderLength:\t\t0x%X\n", PManifest->HeaderLength);
 		printf("[-] HeaderVersion:\t\t0x%X\n", PManifest->HeaderVersion);
