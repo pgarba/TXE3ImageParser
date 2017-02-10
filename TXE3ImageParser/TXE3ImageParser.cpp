@@ -8,8 +8,6 @@
 
 #include "TXE3Headers.h"
 
-int unhuff(unsigned char *huff, unsigned char *out, int outlen, int flags, int version);
-
 /*
 	Small helper to get the file size
 */
