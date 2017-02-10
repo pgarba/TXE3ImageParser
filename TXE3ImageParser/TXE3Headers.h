@@ -137,7 +137,7 @@ typedef struct {
 	unsigned char IFWISignature[512]; 
 } TXE_IFWI_AUTH, *PTXE_IFWI_AUTH; 
 
-typedef struct _SYS_FW_SFIH {
+typedef struct {
 	//"SFIH"
 	unsigned int Signature;
 	unsigned int IFWILength;		
@@ -145,6 +145,20 @@ typedef struct _SYS_FW_SFIH {
 	unsigned int BinaryOffset;
 	unsigned int BinarySize;
 } TXT_SYS_FW_SFIH, *PTXT_SYS_FW_SFIH;
+
+
+/*
+	Boot Partition Descriptor Table
+*/
+const unsigned int TXE_BPDT_Signature = 0x000055AA;
+typedef struct {
+	unsigned int Signature;
+	unsigned short DescriptorCount;
+	unsigned short Version;
+	unsigned int RedundantBlockXorSum;
+	unsigned int IFWIVersion;
+	unsigned __int64 Reserved;
+} TXT_BPDT, *PTXT_BPDT;
 
 #pragma pack(pop)
 
